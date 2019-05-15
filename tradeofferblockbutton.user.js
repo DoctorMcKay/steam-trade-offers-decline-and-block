@@ -3,7 +3,7 @@
 // @namespace   https://www.doctormckay.com
 // @description Adds a button to decline a trade offer and block its sender
 // @include     *://steamcommunity.com/*/*/tradeoffers*
-// @version     1.0.0
+// @version     1.0.1
 // @grant       none
 // ==/UserScript==
 
@@ -15,7 +15,7 @@ $offers.each(function(idx, offer) {
 	$link.text('Decline & Block');
 	$link.click(function() {
 		var offerid = $offer.attr('id').split('_')[1];
-		var steamid = $offer.find('.btn_report').attr('href').match(/'(\d+)'/)[1];
+		var steamid = $offer.find('.btn_report').attr('onclick').match(/'(\d+)'/)[1];
 		
 		ActOnTradeOffer(offerid, 'decline', 'Trade Declined and User Blocked', 'Decline Trade');
 		$J.post('/actions/BlockUserAjax', {"sessionID": g_sessionID, "steamid": steamid, "block": 1});
